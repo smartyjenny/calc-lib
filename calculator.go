@@ -7,6 +7,6 @@ type Calculator interface {
 type Addition struct {
 }
 
-func (this Addition) Calculate(a, b int) int {
+func (this *Addition) Calculate(a, b int) int {
 	return a + b
 }

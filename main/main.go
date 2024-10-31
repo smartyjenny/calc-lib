@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 
@@ -19,11 +20,11 @@ func main() {
 }
 
 type Handler struct {
-	stdout     *os.File
+	stdout     io.Writer
 	calculator *calc_lib.Addition
 }
 
-func NewHandler(stdout *os.File, calculator *calc_lib.Addition) Handler {
+func NewHandler(stdout io.Writer, calculator *calc_lib.Addition) Handler {
 	return Handler{
 		stdout:     stdout,
 		calculator: calculator,
@@ -36,18 +37,18 @@ func (this *Handler) Handle(args []string) error {
 	}
 	a, err := strconv.Atoi(args[0])
 	if err != nil {
-		return fmt.Errorf("%w:%w", errInvalidArg, err)
+		return errInvalidArg
 	}
 	b, err := strconv.Atoi(args[1])
 	if err != nil {
-		return err
+		return errInvalidArg
 	}
 
 	result := this.calculator.Calculate(a, b)
 
 	_, err = fmt.Fprint(this.stdout, result)
 	if err != nil {
-		return err
+		return errWriterFailure
 	}
 
 	return nil
@@ -56,4 +57,5 @@ func (this *Handler) Handle(args []string) error {
 var (
 	errWrongNumberOfArgs = errors.New("usages: calc [a] [b]")
 	errInvalidArg        = errors.New("invalidArgument")
+	errWriterFailure     = errors.New("writer failure")
 )
