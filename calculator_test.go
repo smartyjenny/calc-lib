@@ -20,3 +20,7 @@ func TestAddition_Calculate(t *testing.T) {
 		})
 	}
 }
+
+func TestSubtraction_Calculate(t *testing.T) {
+
+}
