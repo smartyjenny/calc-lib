@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 
-	"github/smartyjenny/calc-lib"
+	calc_lib "github.com/smartyjenny/calc-lib"
 )
 
 func main() {
