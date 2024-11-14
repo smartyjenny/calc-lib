@@ -26,5 +26,5 @@ func (this *Multiplication) Calculate(a, b int) int {
 type Division struct{}
 
 func (this *Division) Calculate(a, b int) int {
-	return a * b
+	return a / b
 }
